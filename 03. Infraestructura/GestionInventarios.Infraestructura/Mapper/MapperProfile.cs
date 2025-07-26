@@ -17,6 +17,9 @@ namespace GestionInventarios.Infraestructura.Mapper
 
             // Mapeo entre ViewModel y Command
             CreateMap<MovInventarioViewModel, InsertarMovInventariosCommand>().ReverseMap();
+            CreateMap<MovInventarioViewModel, ActualizarMovInventariosCommand>().ReverseMap();
+            CreateMap<MovInventarioViewModel, InsertarMovInventariosCommand>().ReverseMap();
+            CreateMap<MovInventarioViewModel, EliminarMovInventariosCommand>().ReverseMap();
 
             // Mapeos para consultas y resultados
             CreateMap<MovInventario, ObtenerMovInventarioQuery>().ReverseMap();
@@ -27,6 +30,13 @@ namespace GestionInventarios.Infraestructura.Mapper
             CreateMap<MovInventario, InsertarMovInventariosCommand>().ReverseMap();
             CreateMap<MovInventario, ActualizarMovInventariosCommand>().ReverseMap();
             CreateMap<MovInventario, EliminarMovInventariosCommand>().ReverseMap();
+
+            // Mapeo de entidad a ViewModel
+            CreateMap<ObtenerMovInventarioResult, MovInventarioViewModel>().ReverseMap();
+
+            // Si necesitas mapear listas:
+            CreateMap<List<ObtenerMovInventarioResult>, List<MovInventarioViewModel>>()
+                .ConvertUsing((src, dest, context) => context.Mapper.Map<List<MovInventarioViewModel>>(src));
         }
     }
 }

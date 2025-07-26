@@ -18,7 +18,7 @@ namespace GestionInventarios.Aplicacion.Persistencia
         /// <param name="tipoMovimiento">Tipo de movimiento a filtrar.</param>
         /// <param name="nroDocumento">Número de documento a filtrar.</param>
         /// <returns>Lista de registros filtrados.</returns>
-        Task<IEnumerable<ObtenerMovInventarioResult>> ObtenerMovInventariosAsync(DateTime? fechaInicio, DateTime? fechaFin, string tipoMovimiento, string nroDocumento);
+        Task<IEnumerable<ObtenerMovInventarioResult>> ObtenerMovInventariosAsync(ObtenerMovInventarioQuery query);
         /// <summary>
         /// Inserta un nuevo registro.
         /// </summary>

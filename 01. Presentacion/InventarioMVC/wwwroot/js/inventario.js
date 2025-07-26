@@ -1,17 +1,23 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-    // Confirmar antes de eliminar
+    // Redirigir a eliminar con confirmación
     document.querySelectorAll(".btn-eliminar").forEach(function (btn) {
         btn.addEventListener("click", function (e) {
-            if (!confirm("¿Está seguro que desea eliminar este movimiento?")) {
-                e.preventDefault();
+            e.preventDefault();
+            if (confirm("¿Está seguro que desea eliminar este movimiento?")) {
+                const tipoMovimiento = btn.getAttribute("data-tipo");
+                const nroDocumento = btn.getAttribute("data-nro");
+                window.location.href = `/MovInventario/Eliminar?tipoMovimiento=${tipoMovimiento}&nroDocumento=${nroDocumento}`;
             }
         });
     });
 
-    // Redirigir a editar (opcional, si quieres manejarlo por JS)
+    // Redirigir a editar
     document.querySelectorAll(".btn-editar").forEach(function (btn) {
         btn.addEventListener("click", function (e) {
-            // Puedes agregar lógica extra aquí si lo necesitas
+            e.preventDefault();
+            const tipoMovimiento = btn.getAttribute("data-tipo");
+            const nroDocumento = btn.getAttribute("data-nro");
+            window.location.href = `/MovInventario/Editar?tipoMovimiento=${tipoMovimiento}&nroDocumento=${nroDocumento}`;
         });
     });
 });

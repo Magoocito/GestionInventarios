@@ -1,4 +1,4 @@
-﻿@model GestionInventarios.Dominio.Entidades.MovInventario
+﻿@model GestionInventarios.Aplicacion.ViewModel.MovInventarioViewModel
 
 @{
     ViewBag.Title = "Editar Movimiento";
@@ -17,7 +17,7 @@
 
             <div class="panel panel-default">
                 <div class="panel-body">
-                    @using (Html.BeginForm("update", "MovInventario", FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
+                    @using (Html.BeginForm("Update", "MovInventario", FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })

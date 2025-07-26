@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<GestionInventarios.Aplicacion.ViewModel.MovInventarioViewModel>
+
+@{
     ViewBag.Title = "Movimientos de Inventario";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -86,7 +88,7 @@
             <!-- Tabla de Datos -->
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4>Registros Encontrados (@(Model != null ? Model.Count : 0))</h4>
+                    <h4>Registros Encontrados (@(Model != null ? Model.Count() : 0))</h4>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -105,7 +107,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (Model != null && Model.Count > 0)
+                                @if (Model != null && Model.Count() > 0)
                                 {
                                     foreach (var item in Model)
                                     {
@@ -148,31 +150,17 @@
                                             <td>@item.Cantidad</td>
                                             <td>@item.FechaTransaccion</td>
                                             <td>
-                                            <div class="btn-group" role="group">
-                                                <a href="@Url.Action("update", "MovInventario", new {
-                                                    codCia = item.CodCia,
-                                                    compVenta = item.CompaniaVenta3,
-                                                    almVenta = item.AlmacenVenta,
-                                                    tipoMov = item.TipoMovimiento,
-                                                    tipoDoc = item.TipoDocumento,
-                                                    nroDoc = item.NroDocumento,
-                                                    codItem = item.CodItem2
-                                                })" class="btn btn-sm btn-primary" title="Editar">
-                                                    <i class="bi bi-pencil"></i>
-                                                </a>
-                                                <a href="@Url.Action("delete", "MovInventario", new {
-                                                    codCia = item.CodCia,
-                                                    compVenta = item.CompaniaVenta3,
-                                                    almVenta = item.AlmacenVenta,
-                                                    tipoMov = item.TipoMovimiento,
-                                                    tipoDoc = item.TipoDocumento,
-                                                    nroDoc = item.NroDocumento,
-                                                    codItem = item.CodItem2
-                                                })" class="btn btn-sm btn-danger" title="Eliminar">
-                                                    <i class="bi bi-trash"></i>
-                                                </a>
-                                            </div>
-                                        </td>
+                                                <button class="btn btn-primary btn-editar"
+                                                        data-tipo="@item.TipoMovimiento"
+                                                        data-nro="@item.NroDocumento">
+                                                    <i class="fa fa-edit"></i> Editar
+                                                </button>
+                                                <button class="btn btn-danger btn-eliminar"
+                                                        data-tipo="@item.TipoMovimiento"
+                                                        data-nro="@item.NroDocumento">
+                                                    <i class="fa fa-trash"></i> Eliminar
+                                                </button>
+                                            </td>
                                         </tr>
                                     }
                                 }

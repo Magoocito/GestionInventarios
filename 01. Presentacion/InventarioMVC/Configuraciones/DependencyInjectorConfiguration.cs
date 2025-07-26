@@ -32,9 +32,6 @@ namespace GestionInventarios.Web.Configuraciones
             services.AddScoped<IRequestHandler<InsertarMovInventariosCommand, Unit>, InsertarMovInventariosCommandHandler>();
             services.AddScoped<IRequestHandler<ActualizarMovInventariosCommand, Unit>, ActualizarMovInventariosCommandHandler>();
             services.AddScoped<IRequestHandler<EliminarMovInventariosCommand, Unit>, EliminarMovInventariosCommandHandler>();
-
-
-
         }
     }
 }

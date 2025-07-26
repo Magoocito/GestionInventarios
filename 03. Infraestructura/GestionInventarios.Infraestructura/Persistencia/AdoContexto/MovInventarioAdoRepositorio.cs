@@ -13,17 +13,15 @@ namespace GestionInventarios.Infraestructura.Persistencia.AdoContexto
             _connection = connection;
         }
 
-        public async Task<IEnumerable<MovInventario>> ConsultarAsync(DateTime? fechaInicio, DateTime? fechaFin, string tipoMovimiento, string nroDocumento)
+        public async Task<IEnumerable<MovInventario>> ConsultarAsync(MovInventario mov)
         {
             var lista = new List<MovInventario>();
             using var command = new SqlCommand("sp_ConsultarMovInventario", _connection)
             {
                 CommandType = System.Data.CommandType.StoredProcedure
             };
-            command.Parameters.AddWithValue("@FechaInicio", fechaInicio ?? (object)DBNull.Value);
-            command.Parameters.AddWithValue("@FechaFin", fechaFin ?? (object)DBNull.Value);
-            command.Parameters.AddWithValue("@TipoMovimiento", tipoMovimiento ?? (object)DBNull.Value);
-            //command.Parameters.AddWithValue("@NroDocumento", nroDocumento ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@TipoMovimiento", mov.TipoMovimiento ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@NumeroDocumento", mov.NroDocumento ?? (object)DBNull.Value);
 
             using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
@@ -83,7 +81,6 @@ namespace GestionInventarios.Infraestructura.Persistencia.AdoContexto
             {
                 CommandType = System.Data.CommandType.StoredProcedure
             };
-            // Agrega los parámetros igual que en InsertarAsync
             command.Parameters.AddWithValue("@COD_CIA", mov.CodCia);
             command.Parameters.AddWithValue("@COMPANIA_VENTA_3", mov.CompaniaVenta3);
             command.Parameters.AddWithValue("@ALMACEN_VENTA", mov.AlmacenVenta);
@@ -91,6 +88,16 @@ namespace GestionInventarios.Infraestructura.Persistencia.AdoContexto
             command.Parameters.AddWithValue("@TIPO_DOCUMENTO", mov.TipoDocumento);
             command.Parameters.AddWithValue("@NRO_DOCUMENTO", mov.NroDocumento);
             command.Parameters.AddWithValue("@COD_ITEM_2", mov.CodItem2);
+            command.Parameters.AddWithValue("@PROVEEDOR", mov.Proveedor ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@ALMACEN_DESTINO", mov.AlmacenDestino ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@CANTIDAD", mov.Cantidad ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@DOC_REF_1", mov.DocRef1 ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@DOC_REF_2", mov.DocRef2 ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@DOC_REF_3", mov.DocRef3 ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@DOC_REF_4", mov.DocRef4 ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@DOC_REF_5", mov.DocRef5 ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@FECHA_TRANSACCION", mov.FechaTransaccion ?? (object)DBNull.Value);
+
             await command.ExecuteNonQueryAsync();
         }
 
@@ -101,12 +108,6 @@ namespace GestionInventarios.Infraestructura.Persistencia.AdoContexto
                 CommandType = System.Data.CommandType.StoredProcedure
             };
             command.Parameters.AddWithValue("@COD_CIA", mov.CodCia);
-            command.Parameters.AddWithValue("@COMPANIA_VENTA_3", mov.CompaniaVenta3);
-            command.Parameters.AddWithValue("@ALMACEN_VENTA", mov.AlmacenVenta);
-            command.Parameters.AddWithValue("@TIPO_MOVIMIENTO", mov.TipoMovimiento);
-            command.Parameters.AddWithValue("@TIPO_DOCUMENTO", mov.TipoDocumento);
-            command.Parameters.AddWithValue("@NRO_DOCUMENTO", mov.NroDocumento);
-            command.Parameters.AddWithValue("@COD_ITEM_2", mov.CodItem2);
 
             await command.ExecuteNonQueryAsync();
         }

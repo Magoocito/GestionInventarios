@@ -1,0 +1,79 @@
+﻿@model GestionInventarios.Aplicacion.ViewModel.MovInventarioViewModel
+
+@{
+    ViewBag.Title = "Eliminar Movimiento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h2>
+                    <i class="fa fa-trash"></i> Eliminar Movimiento de Inventario
+                    <small>@Model.TipoDocumento - @Model.NroDocumento</small>
+                </h2>
+            </div>
+
+            <div class="panel panel-danger">
+                <div class="panel-body">
+                    @using (Html.BeginForm("Delete", "MovInventario", FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @Html.HiddenFor(model => model.CodCia)
+                        @Html.HiddenFor(model => model.CompaniaVenta3)
+                        @Html.HiddenFor(model => model.AlmacenVenta)
+                        @Html.HiddenFor(model => model.TipoMovimiento)
+                        @Html.HiddenFor(model => model.TipoDocumento)
+                        @Html.HiddenFor(model => model.NroDocumento)
+                        @Html.HiddenFor(model => model.CodItem2)
+
+                        <div class="alert alert-danger">
+                            <i class="fa fa-exclamation-triangle"></i>
+                            ¿Está seguro que desea eliminar este movimiento? Esta acción no se puede deshacer.
+                        </div>
+
+                        <dl class="dl-horizontal">
+                            <dt>Proveedor</dt>
+                            <dd>@Model.Proveedor</dd>
+                            <dt>Almacén Destino</dt>
+                            <dd>@Model.AlmacenDestino</dd>
+                            <dt>Cantidad</dt>
+                            <dd>@Model.Cantidad</dd>
+                            <dt>Fecha Transacción</dt>
+                            <dd>@Model.FechaTransaccion?.ToString("dd/MM/yyyy")</dd>
+                            <dt>Doc. Ref. 1</dt>
+                            <dd>@Model.DocRef1</dd>
+                            <dt>Doc. Ref. 2</dt>
+                            <dd>@Model.DocRef2</dd>
+                            <dt>Doc. Ref. 3</dt>
+                            <dd>@Model.DocRef3</dd>
+                            <dt>Doc. Ref. 4</dt>
+                            <dd>@Model.DocRef4</dd>
+                            <dt>Doc. Ref. 5</dt>
+                            <dd>@Model.DocRef5</dd>
+                        </dl>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <hr />
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fa fa-trash"></i> Eliminar Movimiento
+                                </button>
+                                <a href="@Url.Action("Index")" class="btn btn-default">
+                                    <i class="fa fa-arrow-left"></i> Cancelar
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

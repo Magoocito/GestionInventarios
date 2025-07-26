@@ -50,11 +50,6 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "inventario",
-    pattern: "inventario/{action=Index}/{id?}",
-    defaults: new { controller = "MovInventario" }
-);
 
 app.MapControllerRoute(
     name: "default",

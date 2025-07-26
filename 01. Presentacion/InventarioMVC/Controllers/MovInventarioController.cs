@@ -2,6 +2,7 @@
 using GestionInventarios.Aplicacion.Caracteristicas.Comandos.ActualizarMovInventarios;
 using GestionInventarios.Aplicacion.Caracteristicas.Comandos.EliminarMovInventarios;
 using GestionInventarios.Aplicacion.Caracteristicas.Comandos.InsertarMovInventarios;
+using GestionInventarios.Aplicacion.Caracteristicas.Consultas.ObtenerMovInventarios;
 using GestionInventarios.Aplicacion.Persistencia;
 using GestionInventarios.Aplicacion.ViewModel;
 using MediatR;
@@ -9,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GestionInventarios.Web.Controllers
 {
-    [Route("inventario")]
     public class MovInventarioController : Controller
     {
         private readonly IMovInventariosServicios _servicios;
@@ -22,21 +22,34 @@ namespace GestionInventarios.Web.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("")]
-        public async Task<IActionResult> Index(DateTime? fechaInicio, DateTime? fechaFin, string tipoMovimiento, string nroDocumento)
+        public IActionResult Index()
         {
-            var movInventarios = await _servicios.ObtenerMovInventariosAsync(fechaInicio, fechaFin, tipoMovimiento, nroDocumento);
-            var viewModel = _mapper.Map<IEnumerable<MovInventarioViewModel>>(movInventarios);
-            return View(viewModel);
+            var query = new ObtenerMovInventarioQuery();
+            var movInventarios = _servicios.ObtenerMovInventariosAsync(query).Result;
+            var lista = _mapper.Map<IEnumerable<MovInventarioViewModel>>(movInventarios);
+            return View(lista);
         }
 
-        [HttpGet("crear")]
+        [HttpGet]
         public IActionResult Create()
         {
-            return View(new MovInventarioViewModel());
+            return View();
         }
 
-        [HttpPost("crear")]
+        [HttpGet]
+        public async Task<IActionResult> ObtenerMovInventarios(MovInventarioViewModel viewModel)
+        {
+            var query = new ObtenerMovInventarioQuery
+            {
+                TipoMovimiento = viewModel.TipoMovimiento,
+                NroDocumento = viewModel.NroDocumento
+            };
+            var movInventarios = await _servicios.ObtenerMovInventariosAsync(query);
+            var result = _mapper.Map<IEnumerable<MovInventarioViewModel>>(movInventarios);
+            return View("Index", result);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Create(MovInventarioViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -47,7 +60,17 @@ namespace GestionInventarios.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPut("update")]
+        [HttpGet]
+        public async Task<IActionResult> Editar(string tipoMovimiento, string nroDocumento)
+        {
+            var query = new ObtenerMovInventarioQuery { TipoMovimiento = tipoMovimiento, NroDocumento = nroDocumento };
+            var movInventario = await _servicios.ObtenerMovInventariosAsync(query);
+            if (movInventario == null) return NotFound();
+            var viewModel = _mapper.Map<MovInventarioViewModel>(movInventario.FirstOrDefault());
+            return View("Update", viewModel);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Update(MovInventarioViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -55,10 +78,20 @@ namespace GestionInventarios.Web.Controllers
 
             var command = _mapper.Map<ActualizarMovInventariosCommand>(viewModel);
             await _mediator.Send(command);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", viewModel);
         }
 
-        [HttpDelete]
+        [HttpGet]
+        public async Task<IActionResult> Eliminar(string tipoMovimiento, string nroDocumento)
+        {
+            var query = new ObtenerMovInventarioQuery { TipoMovimiento = tipoMovimiento, NroDocumento = nroDocumento };
+            var movInventario = await _servicios.ObtenerMovInventariosAsync(query);
+            if (movInventario == null) return NotFound();
+            var viewModel = _mapper.Map<MovInventarioViewModel>(movInventario.FirstOrDefault());
+            return View("Delete", viewModel);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Delete(MovInventarioViewModel viewModel)
         {
             var command = _mapper.Map<EliminarMovInventariosCommand>(viewModel);

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GestionInventarios.Aplicacion.Persistencia;
+using GestionInventarios.Dominio.Entidades;
 using MediatR;
 
 namespace GestionInventarios.Aplicacion.Caracteristicas.Consultas.ObtenerMovInventarios
@@ -16,7 +17,9 @@ namespace GestionInventarios.Aplicacion.Caracteristicas.Consultas.ObtenerMovInve
 
         public async Task<IEnumerable<ObtenerMovInventarioResult>> Handle(ObtenerMovInventarioQuery request, CancellationToken cancellationToken)
         {
-            var movInventario = await _unitOfWork.MovInventarioRepositorio.ConsultarAsync(request.FechaInicio, request.FechaFin, request.TipoMovimiento, request.NroDocumento);
+
+            var movInventarioFiltro = _mapper.Map<MovInventario>(request);
+            var movInventario = await _unitOfWork.MovInventarioRepositorio.ConsultarAsync(movInventarioFiltro);
             var result = _mapper.Map<IEnumerable<ObtenerMovInventarioResult>>(movInventario);
             return result.ToList();
         }

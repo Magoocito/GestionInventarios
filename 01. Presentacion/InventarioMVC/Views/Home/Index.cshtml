@@ -1,1 +1,37 @@
-﻿
+﻿@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <h2 class="mb-3 text-primary">
+                        Template de Arquitectura Limpia en .NET Core: Fundamentos y Ventajas
+                    </h2>
+                    <p>
+                        Este template representa un ejemplar de cómo implementar una arquitectura limpia en aplicaciones desarrolladas en .NET Core.
+                        Su principal propósito radica en proporcionar una base sólida para la comprensión y aplicación de una arquitectura limpia en proyectos .NET Core.
+                    </p>
+                    <!-- Imagen de arquitectura limpia -->
+                    <div class="text-center mt-4">
+                        <img src="~/images/Picture1.png" alt="Arquitectura Limpia .NET Core" class="img-fluid" style="max-width: 500px;" />
+                    </div>
+                </div>
+            </div>
+            <div class="card shadow">
+                <div class="card-body">
+                    <h4 class="mb-2 text-secondary">Descripción del Proyecto</h4>
+                    <p>
+                        Este proyecto es un sistema CRUD para la gestión de movimientos de inventario, desarrollado siguiendo los principios de arquitectura limpia en .NET 8.
+                        Incluye funcionalidades para crear, consultar, actualizar y eliminar movimientos, utilizando patrones como CQRS, inyección de dependencias y separación de capas (Presentación, Aplicación, Dominio e Infraestructura).
+                        El objetivo es ofrecer una base robusta y escalable para aplicaciones empresariales, facilitando el mantenimiento y la evolución del software. 
+                        Eventualmente se puede implemntar pruebas en el folder de Test y los filtros de busqueda un componente mas como Filtros de busqueda en la vista de Inventario.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -18,11 +18,19 @@ namespace GestionInventarios.Infraestructura.Servicios
             _mapper = mapper;
         }
 
-        public Task ActualizarMovInventariosAsync(ActualizarMovInventariosCommand entity)
+        public async Task<IEnumerable<ObtenerMovInventarioResult>> ObtenerMovInventariosAsync(ObtenerMovInventarioQuery query)
+        {
+            var movInventario = await _unitOfWork.MovInventarioRepositorio.ConsultarAsync(_mapper.Map<MovInventario>(query));
+            var result = _mapper.Map<IEnumerable<ObtenerMovInventarioResult>>(movInventario);
+            return result;
+        }
+
+
+        public async Task ActualizarMovInventariosAsync(ActualizarMovInventariosCommand entity)
         {
             var movInventario = _mapper.Map<MovInventario>(entity);
             _unitOfWork.MovInventarioRepositorio.ActualizarAsync(movInventario);
-            return _unitOfWork.GuardarCambiosAsync();
+            await _unitOfWork.GuardarCambiosAsync();
         }
 
         public async Task EliminarMovInventariosAsync(EliminarMovInventariosCommand entity)
@@ -38,11 +46,6 @@ namespace GestionInventarios.Infraestructura.Servicios
             await _unitOfWork.GuardarCambiosAsync();
         }
 
-        public async Task<IEnumerable<ObtenerMovInventarioResult>> ObtenerMovInventariosAsync(DateTime? fechaInicio, DateTime? fechaFin, string tipoMovimiento, string nroDocumento)
-        {
-            var movInventario = await _unitOfWork.MovInventarioRepositorio.ConsultarAsync(fechaInicio, fechaFin, tipoMovimiento, nroDocumento);
-            var result = _mapper.Map<IEnumerable<ObtenerMovInventarioResult>>(movInventario);
-            return result.ToList();
-        }
+        
     }
 }
