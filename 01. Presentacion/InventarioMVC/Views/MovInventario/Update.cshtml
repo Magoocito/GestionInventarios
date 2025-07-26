@@ -1,0 +1,131 @@
+﻿@model GestionInventarios.Dominio.Entidades.MovInventario
+
+@{
+    ViewBag.Title = "Editar Movimiento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h2>
+                    <i class="fa fa-edit"></i> Editar Movimiento de Inventario
+                    <small>@Model.TipoDocumento - @Model.NroDocumento</small>
+                </h2>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @using (Html.BeginForm("update", "MovInventario", FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @* Clave primaria (oculta y solo lectura) *@
+                        @Html.HiddenFor(model => model.CodCia)
+                        @Html.HiddenFor(model => model.CompaniaVenta3)
+                        @Html.HiddenFor(model => model.AlmacenVenta)
+                        @Html.HiddenFor(model => model.TipoMovimiento)
+                        @Html.HiddenFor(model => model.TipoDocumento)
+                        @Html.HiddenFor(model => model.NroDocumento)
+                        @Html.HiddenFor(model => model.CodItem2)
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-info">
+                                    <i class="fa fa-info-circle"></i> Los campos que forman parte de la clave primaria no se pueden modificar.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Proveedor, "Proveedor", htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.Proveedor, new { htmlAttributes = new { @class = "form-control", @maxlength = "100" } })
+                                    @Html.ValidationMessageFor(model => model.Proveedor, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.AlmacenDestino, "Almacén Destino", htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.AlmacenDestino, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
+                                    @Html.ValidationMessageFor(model => model.AlmacenDestino, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Cantidad, "Cantidad", htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.Cantidad, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                                    @Html.ValidationMessageFor(model => model.Cantidad, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FechaTransaccion, "Fecha Transacción", htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.FechaTransaccion, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.FechaTransaccion, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Referencias de Documentos</h4>
+                                <hr />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DocRef1, "Doc. Ref. 1", htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.DocRef1, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DocRef2, "Doc. Ref. 2", htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.DocRef2, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DocRef3, "Doc. Ref. 3", htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.DocRef3, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DocRef4, "Doc. Ref. 4", htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.DocRef4, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DocRef5, "Doc. Ref. 5", htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.DocRef5, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-save"></i> Guardar Cambios
+                                </button>
+                                <a href="@Url.Action("Index", "MovInventario")" class="btn btn-default">
+                                    <i class="fa fa-arrow-left"></i> Volver
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

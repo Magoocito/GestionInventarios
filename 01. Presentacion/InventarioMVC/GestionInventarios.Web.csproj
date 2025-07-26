@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="8.5.0" />
+    <PackageReference Include="MediatR" Version="13.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.0-preview.6.25358.103" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0-preview.6.25358.103" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\02. Aplicacion\GestionInventarios.Aplicacion\GestionInventarios.Aplicacion.csproj" />
+    <ProjectReference Include="..\..\03. Infraestructura\GestionInventarios.Infraestructura\GestionInventarios.Infraestructura.csproj" />
+  </ItemGroup>
+
+</Project>
