@@ -120,14 +120,5 @@ El proyecto incluirá:
 4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
 5. Crear Pull Request
 
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
-
-## 📞 Contacto
-
-Para preguntas o sugerencias sobre este template de arquitectura limpia, no dudes en contactar.
-
----
 
 > **Nota**: Este proyecto sirve como base educativa y de referencia para implementar arquitectura limpia en .NET Core. Puede ser adaptado y extendido según las necesidades específicas de cada proyecto.
