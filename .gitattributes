@@ -1,8 +1,26 @@
+# Configurar detección de lenguajes para GitHub
+*.cs linguist-detectable=true
+*.cshtml linguist-detectable=false
+*.html linguist-detectable=false
+*.js linguist-detectable=false
+*.css linguist-detectable=false
+
+# Excluir carpetas que no son código principal
+wwwroot/* linguist-vendored=true
+bin/* linguist-generated=true
+obj/* linguist-generated=true
+packages/* linguist-vendored=true
+*.min.js linguist-generated=true
+*.min.css linguist-generated=true
+
+# Marcar archivos como documentación
+*.md linguist-documentation=true
+*.txt linguist-documentation=true
+
 ###############################################################################
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
 * text=auto
-
 ###############################################################################
 # Set default behavior for command prompt diff.
 #
@@ -11,7 +29,6 @@
 # Note: This is only used by command line
 ###############################################################################
 #*.cs     diff=csharp
-
 ###############################################################################
 # Set the merge driver for project and solution files
 #
@@ -34,7 +51,6 @@
 #*.modelproj merge=binary
 #*.sqlproj   merge=binary
 #*.wwaproj   merge=binary
-
 ###############################################################################
 # behavior for image files
 #
@@ -43,7 +59,6 @@
 #*.jpg   binary
 #*.png   binary
 #*.gif   binary
-
 ###############################################################################
 # diff behavior for common document formats
 # 
